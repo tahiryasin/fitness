@@ -44,10 +44,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public static function restrictRecords($crud){
-        if(backpack_user()->hasRole('member')){
-            $crud->addClause('where','user_id',backpack_user()->id);
-        }
+    public function memberClasses(){
+        return $this->hasMany(UserClass::class);
     }
 }

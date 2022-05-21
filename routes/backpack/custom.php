@@ -22,4 +22,5 @@ Route::group([
     Route::crud('issue', 'IssueCrudController');
     Route::crud('user-class', 'UserClassCrudController');
     Route::crud('class-trainer', 'ClassTrainerCrudController');
+    Route::crud('userss', 'UserCrudController');
 }); // this should be the absolute last line of this file

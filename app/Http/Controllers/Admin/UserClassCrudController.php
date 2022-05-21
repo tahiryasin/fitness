@@ -31,9 +31,12 @@ class UserClassCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/user-class');
         CRUD::setEntityNameStrings('user class', 'user classes');
 
-        $this->crud->denyAccess('create','update');
-
-        User::restrictRecords($this->crud);
+        if(backpack_user()->hasRole('member')){
+            $this->crud->denyAccess(['create','update','delete']);
+        }
+        if(backpack_user()->hasRole('manager')){
+            $this->crud->denyAccess(['create']);
+        }
     }
 
     /**

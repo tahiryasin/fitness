@@ -31,7 +31,15 @@ class IssueCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/issue');
         CRUD::setEntityNameStrings('issue', 'issues');
 
-        User::restrictRecords($this->crud);
+        if(backpack_user()->hasRole('member')){
+            $this->crud->addClause('where','user_id',backpack_user()->id);
+        }
+        if(backpack_user()->hasRole('trainer')){
+            $this->crud->denyAccess(['create','update','delete']);
+        }
+        if(backpack_user()->hasRole('manager')){
+            $this->crud->denyAccess(['create','update']);
+        }
     }
 
     /**
@@ -63,7 +71,7 @@ class IssueCrudController extends CrudController
     {
         CRUD::setValidation(IssueRequest::class);
 
-        CRUD::field('user_id');
+        CRUD::field('user_id')->type('hidden')->default(backpack_user()->id);
         CRUD::field('subject');
         CRUD::field('description');
 

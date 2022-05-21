@@ -31,11 +31,12 @@ class ClassTrainerCrudController extends CrudController
         CRUD::setEntityNameStrings('class trainer', 'class trainers');
 
         if(backpack_user()->hasRole('trainer')){
-            $this->crud->addClause('where','trainer_id',backpack_user()->id);
-            $this->crud->denyAccess('create','update','delete');
+            $this->crud->addClause('where','class_id',backpack_user()->id);
+            $this->crud->denyAccess(['create','update','delete']);
         }
-        if(backpack_user()->hasRole('trainer')){
-            $this->crud->addClause('where','trainer_id',backpack_user()->id);
+
+        if(backpack_user()->hasRole('member')){
+            $this->crud->addClause('whereIn','class_id',backpack_user()->memberClasses->pluck('class_id'));
         }
     }
 

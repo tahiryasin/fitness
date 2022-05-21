@@ -30,9 +30,10 @@ class ClassDetailCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/class');
         CRUD::setEntityNameStrings('class', 'classes');
 
-        if(backpack_user()->hasRole('trainer')){
-            $this->crud->addClause('where','user_id');
+        if(backpack_user()->hasRole('trainer') || backpack_user()->hasRole('member')){
+            $this->crud->denyAccess(['create','update','delete']);
         }
+
     }
 
     /**

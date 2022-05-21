@@ -30,7 +30,7 @@ class ContactCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/contact');
         CRUD::setEntityNameStrings('contact', 'contacts');
 
-//        $this->crud->denyAccess(['create','update']);
+        $this->crud->denyAccess(['create','update']);
     }
 
     /**

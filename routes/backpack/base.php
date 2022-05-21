@@ -42,14 +42,14 @@ Route::group(
 
         // if not otherwise configured, setup the dashboard routes
         if (config('backpack.base.setup_dashboard_routes')) {
-            Route::get('dashboard', 'AdminController@dashboard')->name('backpack.dashboard');
-            Route::get('/', 'AdminController@redirect')->name('backpack');
+            Route::get('dashboard', [\Backpack\CRUD\app\Http\Controllers\AdminController::class,'dashboard'])->name('backpack.dashboard');
+            Route::get('/', [\Backpack\CRUD\app\Http\Controllers\AdminController::class,'redirect'])->name('backpack');
         }
 
         // if not otherwise configured, setup the "my account" routes
         if (config('backpack.base.setup_my_account_routes')) {
-            Route::get('edit-account-info', 'MyAccountController@getAccountInfoForm')->name('backpack.account.info');
-            Route::post('edit-account-info', 'MyAccountController@postAccountInfoForm')->name('backpack.account.info.store');
-            Route::post('change-password', 'MyAccountController@postChangePasswordForm')->name('backpack.account.password');
+            Route::get('edit-account-info', '\Backpack\CRUD\app\Http\Controllers\MyAccountController@getAccountInfoForm')->name('backpack.account.info');
+            Route::post('edit-account-info', '\Backpack\CRUD\app\Http\Controllers\MyAccountController@postAccountInfoForm')->name('backpack.account.info.store');
+            Route::post('change-password', '\Backpack\CRUD\app\Http\Controllers\MyAccountController@postChangePasswordForm')->name('backpack.account.password');
         }
     });
